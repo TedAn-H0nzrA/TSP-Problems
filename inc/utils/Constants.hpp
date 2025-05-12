@@ -10,7 +10,7 @@ namespace Constants {
     inline std::string TITLE = "TSP problems (BruteForce vs ACO)";
     inline sf::Color BACKGROUND_COLOR {30, 30, 45};
     inline std::string BACKGROUND_MUSIC = std::string(MUSICS_DIR) + "/background_music.ogg";
-    inline constexpr float bg_music_volume = 15;
+    inline constexpr float bg_music_volume = 100;
 
     // Town
     inline constexpr float t_radius = 10;
@@ -18,6 +18,7 @@ namespace Constants {
 
     // TextManager
     inline std::string fontPath = std::string(FONTS_DIR) + "/JetBrainsMono.ttf";
-    inline constexpr int info_size = 15;
-    inline std::string townNumberInfo = "Towns number = ";
+    inline constexpr int info_size = 13;
+    inline std::string townNumberInfo = "* Towns number = ";
+    inline std::string totalPossibilityInfo = "* Total number of possibility = ";
 };

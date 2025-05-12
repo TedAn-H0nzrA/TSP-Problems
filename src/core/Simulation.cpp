@@ -4,7 +4,8 @@
 
 Simulation::Simulation() :  isAddingTown(false),
                             isPlayMusicBG(false),
-                            townNum(0)
+                            townNum(0),
+                            totalPossibilityCalcule(0)
 {
     window.create(Constants::desktop, Constants::TITLE, sf::Style::Default);
 
@@ -12,10 +13,18 @@ Simulation::Simulation() :  isAddingTown(false),
     if (LoadRessource::loadMusic(Constants::BACKGROUND_MUSIC, music_background)) isPlayMusicBG = true;
 
     // Text manage
+    // Town
     townInfo.setPosition(10, 10);
     townInfo.setCharacterSize(Constants::info_size);
     str_townInfo = Constants::townNumberInfo + std::to_string(townNum);
     townInfo.setString(str_townInfo);
+
+    // Iteration
+    totalPossibilityInfo.setPosition(10, 30);
+    totalPossibilityInfo.setCharacterSize(Constants::info_size);
+    str_totalPossibilityInfo = Constants::totalPossibilityInfo + std::to_string(totalPossibilityCalcule);
+    totalPossibilityInfo.setString(str_totalPossibilityInfo);
+
 }
 
 void Simulation::playBackgroundMusic() {
@@ -66,6 +75,13 @@ void Simulation::manageEvent() {
     }
 }
 
+// Fonction pour calculer la factorielle
+unsigned long long factorial(int n) {
+    if (n <= 1) return 1;
+    return n * factorial(n - 1);
+}
+
+
 void Simulation::addTown() {
     if (isAddingTown) {
         Town newTown;
@@ -74,6 +90,7 @@ void Simulation::addTown() {
 
         towns.push_back(newTown);
         townNum = towns.size();
+        totalPossibilityCalcule = factorial(townNum);
     }
 }
 
@@ -87,6 +104,7 @@ void Simulation::draw() {
 
     // Text
     townInfo.draw(window);
+    totalPossibilityInfo.draw(window);
 
     window.display();
 }
@@ -94,6 +112,9 @@ void Simulation::draw() {
 void Simulation::update() {
     str_townInfo = Constants::townNumberInfo + std::to_string(townNum);
     townInfo.setString(str_townInfo);
+
+    str_totalPossibilityInfo = Constants::totalPossibilityInfo + std::to_string(totalPossibilityCalcule);
+    totalPossibilityInfo.setString(str_totalPossibilityInfo);
 }
 
 void Simulation::run() {

@@ -22,6 +22,11 @@ class Simulation{
         std::string str_townInfo;
         int townNum;
 
+        TextManager totalPossibilityInfo;
+        std::string str_totalPossibilityInfo;
+        std::string srt_totalPossibility;
+        double totalPossibilityCalcule;
+
         void draw();
         void manageEvent();
         void update();
