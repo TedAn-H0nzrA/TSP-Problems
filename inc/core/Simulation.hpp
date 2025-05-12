@@ -23,6 +23,7 @@ class Simulation{
         int townNum;
 
         TextManager totalPossibilityInfo;
+        sf::Color totalPossibilityColor;
         std::string str_totalPossibilityInfo;
         std::string srt_totalPossibility;
         double totalPossibilityCalcule;

@@ -110,11 +110,25 @@ void Simulation::draw() {
 }
 
 void Simulation::update() {
+    // Update Text
     str_townInfo = Constants::townNumberInfo + std::to_string(townNum);
     townInfo.setString(str_townInfo);
 
+    if (townNum <= 3) {
+        totalPossibilityColor = sf::Color(46, 204, 113);
+    } else if (townNum <= 5) {
+        totalPossibilityColor = sf::Color(39, 174, 96);
+    } else if (townNum <= 7) {
+        totalPossibilityColor = sf::Color(241, 196, 15);
+    } else if (townNum <= 9) {
+        totalPossibilityColor = sf::Color(230, 126, 34);
+    } else {
+        totalPossibilityColor = sf::Color(231, 76, 60);
+    }
+
     str_totalPossibilityInfo = Constants::totalPossibilityInfo + std::to_string(totalPossibilityCalcule);
     totalPossibilityInfo.setString(str_totalPossibilityInfo);
+    totalPossibilityInfo.setFillColor(totalPossibilityColor);
 }
 
 void Simulation::run() {

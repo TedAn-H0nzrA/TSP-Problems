@@ -14,5 +14,7 @@ class TextManager {
         void setString(const std::string& str);
         void setCharacterSize(int size);
         void setPosition(float x, float y);
+        void setFillColor(sf::Color& textColor);
+        
         void draw(sf::RenderWindow& window);
 };
