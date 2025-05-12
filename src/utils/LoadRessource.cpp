@@ -7,4 +7,14 @@ namespace LoadRessource {
         }
         return true;
     }
+
+    sf::Font loadFont(const std::string& filePath) {
+        sf::Font font;
+
+        if (!font.loadFromFile(filePath)) {
+            throw std::runtime_error("Failes to load: " + filePath);
+        }
+
+        return font;
+    }
 };

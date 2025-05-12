@@ -15,4 +15,9 @@ namespace Constants {
     // Town
     inline constexpr float t_radius = 10;
     inline sf::Color t_color{255, 215, 0};
+
+    // TextManager
+    inline std::string fontPath = std::string(FONTS_DIR) + "/JetBrainsMono.ttf";
+    inline constexpr int info_size = 15;
+    inline std::string townNumberInfo = "Towns number = ";
 };

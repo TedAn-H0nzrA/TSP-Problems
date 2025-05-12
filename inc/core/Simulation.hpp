@@ -4,6 +4,7 @@
 #include <SFML/Audio.hpp>
 #include <vector>
 #include "Town.hpp"
+#include "TextManager.hpp"
 
 class Simulation{
     private:
@@ -17,8 +18,14 @@ class Simulation{
         bool isAddingTown;
         void addTown();
 
+        TextManager townInfo;
+        std::string str_townInfo;
+        int townNum;
+
         void draw();
         void manageEvent();
+        void update();
+
     public:
         Simulation();
         

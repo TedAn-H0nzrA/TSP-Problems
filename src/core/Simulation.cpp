@@ -2,13 +2,20 @@
 #include "Constants.hpp"
 #include "LoadRessource.hpp"
 
-Simulation::Simulation() : isAddingTown(false),
-                            isPlayMusicBG(false)
+Simulation::Simulation() :  isAddingTown(false),
+                            isPlayMusicBG(false),
+                            townNum(0)
 {
     window.create(Constants::desktop, Constants::TITLE, sf::Style::Default);
 
     // Load background music
     if (LoadRessource::loadMusic(Constants::BACKGROUND_MUSIC, music_background)) isPlayMusicBG = true;
+
+    // Text manage
+    townInfo.setPosition(10, 10);
+    townInfo.setCharacterSize(Constants::info_size);
+    str_townInfo = Constants::townNumberInfo + std::to_string(townNum);
+    townInfo.setString(str_townInfo);
 }
 
 void Simulation::playBackgroundMusic() {
@@ -36,6 +43,7 @@ void Simulation::manageEvent() {
             switch (event.key.code) {
                 case (sf::Keyboard::M) :
                     isPlayMusicBG = !isPlayMusicBG;
+                    break;
 
                 case (sf::Keyboard::T) :
                     isAddingTown = !isAddingTown;
@@ -47,7 +55,7 @@ void Simulation::manageEvent() {
         }
         
         // Event Mouse
-        if (event.type = sf::Event::MouseButtonPressed) {
+        if (event.type == sf::Event::MouseButtonPressed) {
             if (isAddingTown && (event.mouseButton.button == sf::Mouse::Left)) {
                 addTown();
             }
@@ -65,6 +73,7 @@ void Simulation::addTown() {
         newTown.setPosition(mousePos.x, mousePos.y);
 
         towns.push_back(newTown);
+        townNum = towns.size();
     }
 }
 
@@ -75,12 +84,22 @@ void Simulation::draw() {
     for (auto&& town : towns) {
         town.draw(window);
     }
+
+    // Text
+    townInfo.draw(window);
+
     window.display();
+}
+
+void Simulation::update() {
+    str_townInfo = Constants::townNumberInfo + std::to_string(townNum);
+    townInfo.setString(str_townInfo);
 }
 
 void Simulation::run() {
     while (window.isOpen()) {
         manageEvent();
+        update();
         draw();
     }
 }
