@@ -9,4 +9,8 @@ namespace Constants {
     inline float HEIGHT = static_cast<float>(desktop.height);
     inline std::string TITLE = "TSP problems (BruteForce vs ACO)";
     inline sf::Color BACKGROUND_COLOR {30, 30, 45};
+
+    // Town
+    inline constexpr float t_radius = 10;
+    inline sf::Color t_color{255, 215, 0};
 };
