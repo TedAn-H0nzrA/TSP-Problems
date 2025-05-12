@@ -1,9 +1,61 @@
 #include "Simulation.hpp"
 #include "Constants.hpp"
+#include "LoadRessource.hpp"
 
-Simulation::Simulation() : isAddingTown(false)
+Simulation::Simulation() : isAddingTown(false),
+                            isPlayMusicBG(false)
 {
     window.create(Constants::desktop, Constants::TITLE, sf::Style::Default);
+
+    // Load background music
+    if (LoadRessource::loadMusic(Constants::BACKGROUND_MUSIC, music_background)) isPlayMusicBG = true;
+}
+
+void Simulation::playBackgroundMusic() {
+    if (isPlayMusicBG) {
+        if (music_background.getStatus() != sf::Music::Playing) {
+            music_background.setLoop(true);
+            music_background.setVolume(Constants::bg_music_volume);
+            music_background.play();
+        }
+    } else {
+        if (music_background.getStatus() == sf::Music::Playing) {
+            music_background.pause();
+        }
+    }
+}
+
+void Simulation::manageEvent() {
+    sf::Event event;
+    
+    while (window.pollEvent(event)) {
+        if (event.type == sf::Event::Closed) window.close();
+        
+        // Event key
+        if (event.type == sf::Event::KeyPressed) {
+            switch (event.key.code) {
+                case (sf::Keyboard::M) :
+                    isPlayMusicBG = !isPlayMusicBG;
+
+                case (sf::Keyboard::T) :
+                    isAddingTown = !isAddingTown;
+                    break;
+                
+                default:
+                    isAddingTown = false;    
+            }
+        }
+        
+        // Event Mouse
+        if (event.type = sf::Event::MouseButtonPressed) {
+            if (isAddingTown && (event.mouseButton.button == sf::Mouse::Left)) {
+                addTown();
+            }
+        }
+
+        // Music
+        playBackgroundMusic();
+    }
 }
 
 void Simulation::addTown() {
@@ -13,33 +65,6 @@ void Simulation::addTown() {
         newTown.setPosition(mousePos.x, mousePos.y);
 
         towns.push_back(newTown);
-    }
-}
-
-void Simulation::manageEvent() {
-    sf::Event event;
-
-    while (window.pollEvent(event)) {
-        if (event.type == sf::Event::Closed) window.close();
-        
-        // Event key
-        if (event.type == sf::Event::KeyPressed) {
-            switch (event.key.code) {
-                case (sf::Keyboard::T) :
-                    isAddingTown = !isAddingTown;
-                    break;
-                
-                default:
-                    isAddingTown = false;    
-            }
-        }
-
-        // Event Mouse
-        if (event.type = sf::Event::MouseButtonPressed) {
-            if (isAddingTown && (event.mouseButton.button == sf::Mouse::Left)) {
-                addTown();
-            }
-        }
     }
 }
 
