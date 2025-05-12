@@ -5,6 +5,8 @@
 #include <vector>
 #include "Town.hpp"
 #include "TextManager.hpp"
+#include "BruteForce.hpp"
+#include "PathRender.hpp"
 
 class Simulation{
     private:
@@ -16,6 +18,7 @@ class Simulation{
 
         std::vector<Town> towns;
         bool isAddingTown;
+        std::vector<sf::Vector2f> townPosition;
         void addTown();
 
         TextManager townInfo;
@@ -27,6 +30,16 @@ class Simulation{
         std::string str_totalPossibilityInfo;
         std::string srt_totalPossibility;
         double totalPossibilityCalcule;
+
+        // AI
+        BruteForce ai_bruteForce;
+        bool activate_bruteForce;
+
+        // Path
+        PathRender currentPath;
+        PathRender bestPath;
+
+        void AI_solve();
 
         void draw();
         void manageEvent();

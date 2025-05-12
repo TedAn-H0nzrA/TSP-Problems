@@ -20,6 +20,7 @@ file(GLOB_RECURSE SOURCES
     "${SRC_DIR}/core/*.cpp"
     "${SRC_DIR}/entity/*.cpp"
     "${SRC_DIR}/utils/*.cpp"
+    "${SRC_DIR}/AI/*.cpp"
 )
 
 # Création de l'exécutable
@@ -31,6 +32,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${INCLUDE_DIR}/core
     ${INCLUDE_DIR}/entity
     ${INCLUDE_DIR}/utils
+    ${INCLUDE_DIR}/AI
 )
 
 # Définition des macros accessibles dans tout le projet

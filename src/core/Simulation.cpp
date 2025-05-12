@@ -1,11 +1,14 @@
 #include "Simulation.hpp"
 #include "Constants.hpp"
 #include "LoadRessource.hpp"
+#include <iostream>
 
 Simulation::Simulation() :  isAddingTown(false),
                             isPlayMusicBG(false),
                             townNum(0),
-                            totalPossibilityCalcule(0)
+                            totalPossibilityCalcule(0),
+                            ai_bruteForce(towns),
+                            activate_bruteForce(false)
 {
     window.create(Constants::desktop, Constants::TITLE, sf::Style::Default);
 
@@ -57,7 +60,15 @@ void Simulation::manageEvent() {
                 case (sf::Keyboard::T) :
                     isAddingTown = !isAddingTown;
                     break;
-                
+
+                case (sf::Keyboard::B) :
+                    isAddingTown = false;
+                    ai_bruteForce.setTowns(towns);
+                    activate_bruteForce = true;
+                    ai_bruteForce.reset(); // reset APRÈS avoir ajouté les villes
+                    std::cout << "Algo BruteForce activate\n";
+                    std::cout << "Number of town: " << towns.size() << std::endl;
+
                 default:
                     isAddingTown = false;    
             }
@@ -91,6 +102,22 @@ void Simulation::addTown() {
         towns.push_back(newTown);
         townNum = towns.size();
         totalPossibilityCalcule = factorial(townNum);
+        
+        // Town Position
+        townPosition.push_back(newTown.getPosition());
+    }
+}
+
+void Simulation::AI_solve() {
+    if (activate_bruteForce) {
+        if (!ai_bruteForce.isFinished()) {
+            ai_bruteForce.resolveStep();
+            currentPath.setPath(townPosition, ai_bruteForce.getCurrentPath());
+            bestPath.setPath(townPosition, ai_bruteForce.getBestPath());
+            std::cout << "[DEBUG] Current path size: " << ai_bruteForce.getCurrentPath().size() << "\n";
+            std::cout << "[DEBUG] Best path size: " << ai_bruteForce.getBestPath().size() << "\n";
+
+        }
     }
 }
 
@@ -105,6 +132,11 @@ void Simulation::draw() {
     // Text
     townInfo.draw(window);
     totalPossibilityInfo.draw(window);
+
+    // AI
+    // Path
+    currentPath.draw(window);
+    bestPath.draw(window);
 
     window.display();
 }
@@ -129,6 +161,8 @@ void Simulation::update() {
     str_totalPossibilityInfo = Constants::totalPossibilityInfo + std::to_string(totalPossibilityCalcule);
     totalPossibilityInfo.setString(str_totalPossibilityInfo);
     totalPossibilityInfo.setFillColor(totalPossibilityColor);
+
+    AI_solve();
 }
 
 void Simulation::run() {

@@ -16,6 +16,10 @@ namespace Constants {
     inline constexpr float t_radius = 10;
     inline sf::Color t_color{255, 215, 0};
 
+    // Path
+    inline sf::Color path_color{210, 210, 210};
+    inline sf::Color bestPath_color{39, 174, 96};
+
     // TextManager
     inline std::string fontPath = std::string(FONTS_DIR) + "/JetBrainsMono.ttf";
     inline constexpr int info_size = 13;

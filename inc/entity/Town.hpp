@@ -11,5 +11,6 @@ class Town{
         Town();
         
         void setPosition(float x, float y);
+        sf::Vector2f getPosition() const;
         void draw(sf::RenderWindow& window);
 };
