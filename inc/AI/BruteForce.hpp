@@ -16,6 +16,8 @@ class BruteForce{
         std::vector<int> currentPath;
         bool finished;
 
+        int search_finished;
+
         float calculDistance(const sf::Vector2f& a, const sf::Vector2f& b);
         float pathLength(const std::vector<int>& path);
 
@@ -30,5 +32,6 @@ class BruteForce{
         std::vector<int> getCurrentPath() const;
         std::vector<int> getBestPath() const;
         float getBestDistance() const;
+        int getSearchFinised() const;
         bool isFinished() const;
 };

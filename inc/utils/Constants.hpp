@@ -23,6 +23,9 @@ namespace Constants {
     // TextManager
     inline std::string fontPath = std::string(FONTS_DIR) + "/JetBrainsMono.ttf";
     inline constexpr int info_size = 13;
-    inline std::string townNumberInfo = "* Towns number = ";
-    inline std::string totalPossibilityInfo = "* Total number of possibility = ";
+    inline std::string townNumberInfo = "* Towns number : ";
+    inline std::string totalPossibilityInfo = "* Total number of possibility : ";
+    inline std::string bestDistanceInfo = "* Best Distance : ";
+    inline std::string searchInfo ="* Seach : ";
+    inline std::string progressInfo ="* Progress (%) :";
 };

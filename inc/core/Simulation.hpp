@@ -29,9 +29,22 @@ class Simulation{
         sf::Color totalPossibilityColor;
         std::string str_totalPossibilityInfo;
         std::string srt_totalPossibility;
-        double totalPossibilityCalcule;
+        unsigned long long totalPossibilityCalcule;
 
         // AI
+        TextManager bestDistanceInfo;
+        std::string str_bestDistanceInfo;
+        float bestDistance;
+
+        TextManager searchInfos;
+        std::string str_searchInfo;
+        int search;
+
+        TextManager progressInfo;
+        std::string str_progressInfo;
+        float progress;
+
+        // BruteForce
         BruteForce ai_bruteForce;
         bool activate_bruteForce;
 
@@ -44,6 +57,7 @@ class Simulation{
         void draw();
         void manageEvent();
         void update();
+        void reset();
 
     public:
         Simulation();

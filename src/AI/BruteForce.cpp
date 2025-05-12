@@ -4,7 +4,8 @@
 BruteForce::BruteForce(std::vector<Town>& towns) : 
                 towns(towns),
                 bestDistance(std::numeric_limits<float>::max()),
-                finished(false)
+                finished(false),
+                search_finished(0)
 
 {}
 
@@ -54,6 +55,7 @@ bool BruteForce::resolveStep() {
 
     // Evaluate result
     float dist = pathLength(currentPath);
+    search_finished++;
     if (dist < bestDistance) {
         bestDistance = dist;
         bestPath = currentPath;
@@ -75,6 +77,9 @@ std::vector<int> BruteForce::getBestPath() const {
 }
 float BruteForce::getBestDistance() const {
     return bestDistance;
+}
+int BruteForce::getSearchFinised() const {
+    return search_finished;
 }
 bool BruteForce::isFinished() const {
     return finished;
