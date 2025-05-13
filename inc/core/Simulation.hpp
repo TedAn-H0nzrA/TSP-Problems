@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <vector>
+#include <chrono>
 #include "Town.hpp"
 #include "TextManager.hpp"
 #include "BruteForce.hpp"
@@ -47,6 +48,7 @@ class Simulation{
         // BruteForce
         BruteForce ai_bruteForce;
         bool activate_bruteForce;
+
 
         // Path
         PathRender currentPath;

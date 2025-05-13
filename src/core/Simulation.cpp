@@ -211,20 +211,27 @@ void Simulation::update() {
 }
 
 void Simulation::reset() {
+    // Reset AI
+    ai_bruteForce.reset();
+    ai_bruteForce = BruteForce(towns);
+    activate_bruteForce = false;
+    
+    // Reset Town
     isAddingTown = false;
     townNum = 0;
+    townPosition.clear();
+    townNum = 0;
+
+    // Reset calcule data
     totalPossibilityCalcule = 0;
     progress = 0;
     search = 0;
+
+    // Reset path Data
     bestDistance = 0;
     bestPath.clear();
     currentPath.clear();
-    activate_bruteForce = false;
-    townPosition.clear();
-    townNum = 0;
     towns.clear();
-
-    ai_bruteForce.reset();
 }
 
 void Simulation::run() {
