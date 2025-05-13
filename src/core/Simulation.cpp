@@ -1,8 +1,12 @@
+// Simulation.cpp
+// Defined all of the class simulation function and attribut
+
 #include "Simulation.hpp"
 #include "Constants.hpp"
 #include "LoadRessource.hpp"
 #include <iostream>
 
+// Constructor and Initialize default value
 Simulation::Simulation() :  isAddingTown(false),
                             isPlayMusicBG(false),
                             townNum(0),
@@ -56,6 +60,7 @@ Simulation::Simulation() :  isAddingTown(false),
 
 }
 
+// Manage the background music (Play/Pause)
 void Simulation::playBackgroundMusic() {
     if (isPlayMusicBG) {
         if (music_background.getStatus() != sf::Music::Playing) {
@@ -70,6 +75,7 @@ void Simulation::playBackgroundMusic() {
     }
 }
 
+// Manage all of the event in the simulation
 void Simulation::manageEvent() {
     sf::Event event;
     
@@ -118,13 +124,15 @@ void Simulation::manageEvent() {
     }
 }
 
-// Fonction pour calculer la factorielle
+// Side Fonction for calculating the factorial
 unsigned long long factorial(int n) {
     if (n <= 1) return 1;
     return n * factorial(n - 1);
 }
 
 
+// Allow to add town by pressing the mousButton::Left once
+// Based on isAddingTown = true
 void Simulation::addTown() {
     if (isAddingTown) {
         Town newTown;
@@ -140,6 +148,8 @@ void Simulation::addTown() {
     }
 }
 
+// Let the AI sole the probleme of TSP
+// 2 AI: BruteForce && ACO
 void Simulation::AI_solve() {
     if (activate_bruteForce) {
         if (!ai_bruteForce.isFinished()) {
@@ -152,8 +162,11 @@ void Simulation::AI_solve() {
             // std::cout << "[DEBUG] Best path size: " << ai_bruteForce.getBestPath().size() << "\n";
         }
     }
+
+    // ACO implementation
 }
 
+// Fonction to draw everything in sync
 void Simulation::draw() {
     window.clear(Constants::BACKGROUND_COLOR);
     // Draw entity and else
@@ -177,6 +190,7 @@ void Simulation::draw() {
     window.display();
 }
 
+// Fonction ot update calcule, text, color, ai 
 void Simulation::update() {
     // Update Text
     str_townInfo = Constants::townNumberInfo + std::to_string(townNum);
@@ -210,6 +224,7 @@ void Simulation::update() {
     progressInfo.setString(str_progressInfo);
 }
 
+// Reset the simulation to his default parameter and value (AI include)
 void Simulation::reset() {
     // Reset AI
     ai_bruteForce.reset();
@@ -234,6 +249,8 @@ void Simulation::reset() {
     towns.clear();
 }
 
+// Allow to run simulation
+// Only function public to call
 void Simulation::run() {
     while (window.isOpen()) {
         manageEvent();

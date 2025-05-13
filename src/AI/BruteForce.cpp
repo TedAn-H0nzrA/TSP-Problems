@@ -1,6 +1,11 @@
+// BruteForce.cpp
+// Implementation of the search fonction of BruteForce algorithme
+
 #include "BruteForce.hpp"
 #include <iostream>
 
+// Constructor
+// Take a vector of Town as parameter and initialize all intern variable
 BruteForce::BruteForce(std::vector<Town>& towns) : 
                 towns(towns),
                 bestDistance(std::numeric_limits<float>::max()),
@@ -9,10 +14,14 @@ BruteForce::BruteForce(std::vector<Town>& towns) :
 
 {}
 
+// Defined the list of town (reused if towns change)
 void BruteForce::setTowns(std::vector<Town>& newTowns) {
     towns = newTowns;
 }
 
+// Calculate distance of 2 entities (2D)
+// Parameter: Position of 2 entities
+// @return distance (float)
 float BruteForce::calculDistance(const sf::Vector2f& a, const sf::Vector2f& b) {
     float dist;
 
@@ -24,6 +33,9 @@ float BruteForce::calculDistance(const sf::Vector2f& a, const sf::Vector2f& b) {
     return dist;
 }
 
+// Calculate the total distance of a path (towns order)
+// Parameter: path (vector index representing towns order)
+// @return total distance (float)
 float BruteForce::pathLength(const std::vector<int>& path) {
     if (path.size() < 2) return 0;
     float total = 0;
@@ -39,6 +51,7 @@ float BruteForce::pathLength(const std::vector<int>& path) {
     return total;
 }
 
+// Reset value and data for another search
 void BruteForce::reset() {
     int numberTowns = towns.size();
     currentPath.resize(numberTowns);
@@ -50,6 +63,9 @@ void BruteForce::reset() {
     std::cout << "[DEBUG] BruteForce reset avec " << numberTowns << " villes\n";
 }
 
+// Perform a permutation state et evaluate the currente distance
+// Core of BruteForce algorithme
+// @return true if the search continue, and false if all the permutation if tested
 bool BruteForce::resolveStep() {
     if (finished) return false;
 
@@ -61,7 +77,7 @@ bool BruteForce::resolveStep() {
         bestPath = currentPath;
     }
 
-    // Change permutation
+    // Generate the next Permutation
     if (!std::next_permutation(currentPath.begin(), currentPath.end())) {
         finished = true;
     }
@@ -69,6 +85,7 @@ bool BruteForce::resolveStep() {
     return !finished;
 }
 
+// Getters
 std::vector<int> BruteForce::getCurrentPath() const {
     return currentPath;
 }

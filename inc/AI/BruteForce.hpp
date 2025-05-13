@@ -1,3 +1,7 @@
+// BruteForce.hpp
+// Initialize class parameter and attribute
+// Artificial Intelligence based on BruteForce algorithme
+
 #pragma once
 
 #include <SFML/Graphics.hpp>
@@ -7,16 +11,18 @@
 #include "Town.hpp"
 #include "PathRender.hpp"
 
+
+/// class BruteForce
+/// Implementation of an AI based on the comprehensive TSP approach
 class BruteForce{
     private:
-        std::vector<Town> towns;
+        std::vector<Town> towns;        // Town list
 
-        float bestDistance;
-        std::vector<int> bestPath;
-        std::vector<int> currentPath;
-        bool finished;
-
-        int search_finished;
+        float bestDistance;             // Best Distance find 
+        std::vector<int> bestPath;      // Best path tested and find
+        std::vector<int> currentPath;   // Current path tested
+        bool finished;                  // True if all the permutation is tested
+        int search_finished;            // Total number of iteration
 
         float calculDistance(const sf::Vector2f& a, const sf::Vector2f& b);
         float pathLength(const std::vector<int>& path);

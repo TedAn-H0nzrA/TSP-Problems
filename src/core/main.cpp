@@ -1,3 +1,6 @@
+// main.cpp
+// Core of the compilation and managment of exception
+
 #include <iostream>
 #include "Simulation.hpp"
 

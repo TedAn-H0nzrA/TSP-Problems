@@ -1,12 +1,16 @@
+// TextManager.hpp
+// Making the management of text and render
+
 #pragma once
 
 #include <SFML/Graphics.hpp>
 #include <string>
 
+// class TextManager organizing the operation
 class TextManager {
     private:
-        sf::Font font;
-        sf::Text text;
+        sf::Font font;      // Font for the text
+        sf::Text text;      // Text to manipulate
     
     public:
         TextManager();

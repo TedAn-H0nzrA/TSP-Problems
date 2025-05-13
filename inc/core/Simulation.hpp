@@ -1,3 +1,8 @@
+// Simulation.hpp
+// Initialize project parameter and attribut
+// Launch core of the entire projetct (AI, window, etc)
+
+
 #pragma once
 
 #include <SFML/Graphics.hpp>
@@ -9,50 +14,51 @@
 #include "BruteForce.hpp"
 #include "PathRender.hpp"
 
+// class Simulation, main class of the project
+// Manage the entire simulation lifecycle, form visual rendering to entity and AI update
 class Simulation{
     private:
-        sf::RenderWindow window;
+        sf::RenderWindow window;                    // Main window
 
-        sf::Music music_background;
+        sf::Music music_background;                 // Music background 
         bool isPlayMusicBG;
         void playBackgroundMusic();
 
-        std::vector<Town> towns;
-        bool isAddingTown;
-        std::vector<sf::Vector2f> townPosition;
+        std::vector<Town> towns;                    // Lists of towns
+        bool isAddingTown;                          // True: user can add Town
+        std::vector<sf::Vector2f> townPosition;     // List of townPosition
         void addTown();
 
-        TextManager townInfo;
-        std::string str_townInfo;
-        int townNum;
+        TextManager townInfo;                       // Render text: Number of Town
+        std::string str_townInfo;                   // The text taking the number of town and description caption
+        int townNum;                                // Number of town
 
-        TextManager totalPossibilityInfo;
-        sf::Color totalPossibilityColor;
-        std::string str_totalPossibilityInfo;
-        std::string srt_totalPossibility;
-        unsigned long long totalPossibilityCalcule;
+        TextManager totalPossibilityInfo;           // Render Text: Number of possibility
+        sf::Color totalPossibilityColor;            // Color of the text
+        std::string str_totalPossibilityInfo;       // The text taking the number of possibility and caption
+        unsigned long long totalPossibilityCalcule; // Number of possibility
 
         // AI
-        TextManager bestDistanceInfo;
-        std::string str_bestDistanceInfo;
-        float bestDistance;
+        TextManager bestDistanceInfo;               // Render text of: the best distance
+        std::string str_bestDistanceInfo;           // The text: caption + best distance value
+        float bestDistance;                         // Value of the best distance so far
 
-        TextManager searchInfos;
-        std::string str_searchInfo;
-        int search;
+        TextManager searchInfos;                    // Render  text of interation
+        std::string str_searchInfo;                 // Value of the iteration + caption
+        int search;                                 // Value of the iteration
 
-        TextManager progressInfo;
-        std::string str_progressInfo;
-        float progress;
+        TextManager progressInfo;                   // Render Text of: the % of iteration
+        std::string str_progressInfo;               // caption + value
+        float progress;                             // Value % of the itetation
 
         // BruteForce
-        BruteForce ai_bruteForce;
-        bool activate_bruteForce;
+        BruteForce ai_bruteForce;                   // BruteForce algorithme
+        bool activate_bruteForce;                   // True: BruteForce resolve
 
 
         // Path
-        PathRender currentPath;
-        PathRender bestPath;
+        PathRender currentPath;                     // Current path class
+        PathRender bestPath;                        // Best path class
 
         void AI_solve();
 

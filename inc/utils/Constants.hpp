@@ -1,8 +1,13 @@
+// Constants.hpp
+// Isolating all of the constants value with namespace 
+// Option to change value fast
+
 #pragma once
 
 #include <SFML/Graphics.hpp>
 #include <string>
 
+// Namespace of all of the const value
 namespace Constants {
     inline sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
     inline float WIDTH = static_cast<float>(desktop.width);
