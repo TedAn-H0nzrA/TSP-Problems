@@ -1,1 +1,133 @@
-# TSP-Problems
+# 🧭 Travelling Salesman Problem Simulator
+
+An interactive application to visualize and solve the Travelling Salesman Problem (TSP) using the brute-force algorithm.
+
+---
+
+## 📌 Description
+
+This application provides a visual simulation of the Travelling Salesman Problem. The user can place cities on the screen and observe the brute-force algorithm compute the optimal route to visit all cities exactly once and return to the starting point.
+
+---
+
+## 🎯 Features
+
+- **Interactive city placement**: Click to add cities on the screen.
+- **Real-time visualization**: Watch the algorithm explore all possible routes.
+- **Dynamic display of the best path found**.
+- **Live statistics**:
+  - Number of cities
+  - Total number of permutations to explore
+  - Best distance found
+  - Number of paths evaluated
+  - Search progress (in %)
+
+---
+
+## 🎮 Controls
+
+| Key          | Action                                      |
+|--------------|---------------------------------------------|
+| `T`          | Toggle city placement mode                  |
+| `B`          | Start the brute-force algorithm             |
+| `Space`      | Reset the simulation                        |
+| `M`          | Toggle background music                     |
+| `Left Click` | Add a city (when placement mode is active)  |
+
+---
+
+## 🧠 Implemented Algorithm: **Brute Force**
+
+The brute-force algorithm explores every possible permutation of the cities to find the shortest route. While this guarantees the **optimal solution**, the performance **degrades rapidly** as the number of cities increases.
+
+> Time complexity: `(n-1)!` where `n` is the number of cities
+
+### Performance indication (color-coded)
+
+- 🟢 **Green** (≤ 5 cities): Fast computation
+- 🟡 **Yellow** (6–7 cities): Moderate computation
+- 🟠 **Orange** (8–9 cities): Slow computation
+- 🔴 **Red** (≥ 10 cities): Very slow, not recommended
+
+---
+
+## ✅ Usage tips
+
+1. Press `T` to activate city placement mode.
+2. Click on the screen to place your cities.
+3. Press `B` to start the brute-force algorithm.
+4. Watch the progress and path update in real time.
+5. Press `Space` to reset and try again.
+
+---
+
+## 🧪 Technical Challenges
+
+- **Factorial Explosion**: The brute-force approach becomes impractical beyond 10-12 cities.
+- **Precision vs Speed**: The simulator prioritizes finding the exact optimal solution over execution speed.
+- **Visualization Performance**: Rendering all paths in real-time while maintaining responsive UI.
+
+---
+
+## 🗂️ Project Structure
+
+```bash
+├── inc/
+│   ├── AI/            # Algorithm implementations
+│   ├── core/          # Core simulation components
+│   ├── entity/        # Entity classes (Town, Path)
+│   └── utils/         # Utility functions and constants
+├── src/
+│   ├── AI/
+│   ├── core/
+│   ├── entity/
+│   └── utils/
+├── assets/
+│   ├── fonts/
+│   └── music/
+├── out/               # Final executable directory
+├── build/             # CMake build directory
+├── CMakeLists.txt
+└── README.md
+```
+
+## 🛠️ Build & Run (with CMake)
+
+### Requirements
+
+- [SFML 2.5+](https://www.sfml-dev.org/)
+- CMake ≥ 3.10
+- C++ compiler compatible with C++17
+
+### 📦 Build Steps
+
+```bash
+# Create a build directory
+mkdir build
+cd build
+
+# Generate build files using CMake
+cmake ..
+
+# Compile the project
+cmake --build .
+
+# Run the generated executable 
+cd ../out/
+./TSP_Problems
+```
+
+**💡 If SFML is not found automatically, you may need to set CMAKE_PREFIX_PATH or update the CMakeLists.txt to manually specify your library path.**
+
+## 🔮 Future Perspectives
+
+Potential improvements for future releases:
+
+- Implementation of additional algorithms (Nearest Neighbor, Genetic Algorithm)
+- Support for loading/saving city configurations
+- Performance optimizations for larger problem sets
+- Custom rendering options (city colors, path styles)
+
+---
+
+## 🎓 Developed by Andrianina – Computer Science – 2025
