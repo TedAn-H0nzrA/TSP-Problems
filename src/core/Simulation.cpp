@@ -141,7 +141,7 @@ void Simulation::addTown() {
 
         towns.push_back(newTown);
         townNum = towns.size();
-        totalPossibilityCalcule = factorial(townNum);
+        totalPossibilityCalcule = factorial(townNum - 1) / 2;
         
         // Town Position
         townPosition.push_back(newTown.getPosition());

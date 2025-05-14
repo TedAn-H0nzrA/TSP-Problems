@@ -3,6 +3,7 @@
 
 #include "BruteForce.hpp"
 #include <iostream>
+#include <algorithm>
 
 // Constructor
 // Take a vector of Town as parameter and initialize all intern variable
@@ -54,12 +55,18 @@ float BruteForce::pathLength(const std::vector<int>& path) {
 // Reset value and data for another search
 void BruteForce::reset() {
     int numberTowns = towns.size();
+
+    // Intitialize the first town manualy
+    // Fixed towns 1 => (n-1)!
     currentPath.resize(numberTowns);
-    for (int i = 0; i < numberTowns; i++) currentPath[i] = i;
+    currentPath[0] = 0;
+    for (int i = 1; i < numberTowns; i++) currentPath[i] = i;
+    std::sort(currentPath.begin() + 1, currentPath.end());
     bestDistance = std::numeric_limits<float>::max();
 
     bestPath.clear();
     finished = false;
+    search_finished = 0;
     std::cout << "[DEBUG] BruteForce reset avec " << numberTowns << " villes\n";
 }
 
@@ -68,17 +75,21 @@ void BruteForce::reset() {
 // @return true if the search continue, and false if all the permutation if tested
 bool BruteForce::resolveStep() {
     if (finished) return false;
+    std::vector<int> reversedPath = currentPath;
+    std::reverse(reversedPath.begin() + 1, reversedPath.end());
 
     // Evaluate result
-    float dist = pathLength(currentPath);
-    search_finished++;
-    if (dist < bestDistance) {
-        bestDistance = dist;
-        bestPath = currentPath;
+    if (currentPath < reversedPath) {
+        float dist = pathLength(currentPath);
+        search_finished++;
+        if (dist < bestDistance) {
+            bestDistance = dist;
+            bestPath = currentPath;
+        }
     }
 
-    // Generate the next Permutation
-    if (!std::next_permutation(currentPath.begin(), currentPath.end())) {
+    // Generate the next Permutation only of 1 to (n-1)
+    if (!std::next_permutation(currentPath.begin() + 1, currentPath.end())) {
         finished = true;
     }
 
