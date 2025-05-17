@@ -5,11 +5,14 @@
 #include "Constants.hpp"
 #include "LoadRessource.hpp"
 #include <iostream>
+#include <iomanip>
+#include <random>
 
 // Constructor and Initialize default value
 Simulation::Simulation() :  isAddingTown(false),
                             isPlayMusicBG(false),
                             townNum(0),
+                            generateTown_number(Constants::generateTown_number),
                             totalPossibilityCalcule(0),
                             ai_bruteForce(towns),
                             activate_bruteForce(false),
@@ -102,6 +105,13 @@ void Simulation::manageEvent() {
                     // std::cout << "Number of town: " << towns.size() << std::endl;
                     break;
 
+                case (sf::Keyboard::G) :
+                    if (!activate_bruteForce) {
+                        isAddingTown = !isAddingTown;
+                        generateTown();
+                    } 
+                    break;
+
                 case (sf::Keyboard::Space) :
                     reset();
                     break;
@@ -151,6 +161,7 @@ void Simulation::addTown() {
 // Let the AI sole the probleme of TSP
 // 2 AI: BruteForce && ACO
 void Simulation::AI_solve() {
+    isAddingTown = false;
     if (activate_bruteForce) {
         if (!ai_bruteForce.isFinished()) {
             ai_bruteForce.resolveStep();
@@ -164,6 +175,28 @@ void Simulation::AI_solve() {
     }
 
     // ACO implementation
+}
+
+void Simulation::generateTown() {
+    if (isAddingTown) {
+        std::random_device rd;
+        std::mt19937 gen(rd());
+    
+        std::uniform_real_distribution<float> distX(Constants::t_radius, Constants::WIDTH - Constants::t_radius);
+        std::uniform_real_distribution<float> distY(Constants::t_radius, Constants::HEIGHT - Constants::t_radius);
+    
+        for (size_t i = 0; i < generateTown_number; i++) {
+            Town newTown;
+            newTown.setPosition(distX(gen), distY(gen));
+    
+            towns.push_back(newTown);
+            
+            // Town Position
+            townPosition.push_back(newTown.getPosition());
+        }
+        townNum = towns.size();
+        totalPossibilityCalcule = factorial(townNum - 1) / 2;
+    }
 }
 
 // Fonction to draw everything in sync
@@ -208,7 +241,12 @@ void Simulation::update() {
         totalPossibilityColor = sf::Color(231, 76, 60);
     }
 
-    str_totalPossibilityInfo = Constants::totalPossibilityInfo + std::to_string(totalPossibilityCalcule);
+    // If the number of town is more than 66, render Too big
+    if (townNum >= 66) {
+        str_totalPossibilityInfo = Constants::totalPossibilityInfo + std::string("Too Big to calculate");
+    } else {
+        str_totalPossibilityInfo = Constants::totalPossibilityInfo + std::to_string(totalPossibilityCalcule);
+    }
     totalPossibilityInfo.setString(str_totalPossibilityInfo);
     totalPossibilityInfo.setFillColor(totalPossibilityColor);
 

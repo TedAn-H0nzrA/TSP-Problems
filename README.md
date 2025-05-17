@@ -73,22 +73,23 @@ The brute-force algorithm explores every possible permutation of the cities to f
 
 ```bash
 ├── inc/
-│   ├── AI/            # Algorithm implementations
-│   ├── core/          # Core simulation components
-│   ├── entity/        # Entity classes (Town, Path)
-│   └── utils/         # Utility functions and constants
+│   ├── AI/            # Algorithm implementations (e.g., ACO)
+│   ├── core/          # Core simulation logic and management
+│   ├── entity/        # Classes representing simulation entities (e.g., Town, Path)
+│   └── utils/         # Helper functions, constants, and utility classes
 ├── src/
-│   ├── AI/
-│   ├── core/
-│   ├── entity/
-│   └── utils/
+│   ├── AI/            # Source files for AI algorithms
+│   ├── core/          # Source files for core logic
+│   ├── entity/        # Source files for entity classes
+│   └── utils/         # Source files for utility functions
 ├── assets/
-│   ├── fonts/
-│   └── music/
-├── out/               # Final executable directory
-├── build/             # CMake build directory
-├── CMakeLists.txt
-└── README.md
+│   ├── fonts/         # Font files used in the UI
+│   └── music/         # Background music and sound effects
+├── out/               # Directory for the compiled executable
+├── build/             # CMake build output directory
+├── CMakeLists.txt     # CMake configuration file
+└── README.md          # Project overview and instructions
+
 ```
 
 ## 🛠️ Build & Run (with CMake)

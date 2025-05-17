@@ -62,6 +62,9 @@ class Simulation{
 
         void AI_solve();
 
+        int generateTown_number;
+        void generateTown();
+
         void draw();
         void manageEvent();
         void update();

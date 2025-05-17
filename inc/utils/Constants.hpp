@@ -20,6 +20,7 @@ namespace Constants {
     // Town
     inline constexpr float t_radius = 10;
     inline sf::Color t_color{255, 215, 0};
+    inline constexpr int generateTown_number = 100;
 
     // Path
     inline sf::Color path_color{210, 210, 210};
@@ -33,4 +34,7 @@ namespace Constants {
     inline std::string bestDistanceInfo = "* Best Distance : ";
     inline std::string searchInfo ="* Seach : ";
     inline std::string progressInfo ="* Progress (%) :";
+
+    // ACO Parameter and constants
+    inline constexpr float ACO_pheromone_depot_intensity = 1;
 };
