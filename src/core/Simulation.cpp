@@ -16,6 +16,7 @@ Simulation::Simulation() :  isAddingTown(false),
                             totalPossibilityCalcule(0),
                             ai_bruteForce(towns),
                             activate_bruteForce(false),
+                            activate_ACO(false),
                             bestDistance(0),
                             search(0),
                             progress(0)
@@ -56,6 +57,16 @@ Simulation::Simulation() :  isAddingTown(false),
     progressInfo.setCharacterSize(Constants::info_size);
     str_progressInfo = Constants::progressInfo + std::to_string(progress);
     progressInfo.setString(str_progressInfo);
+
+    // *Mode
+    modeInfo.setPosition(10, 110);
+    modeInfo.setCharacterSize(Constants::info_size);
+    modeInfo_option[0] = "No active mode";
+    modeInfo_option[1] = "Add Towns";
+    modeInfo_option[2] = "BruteForce algorithme";
+    modeInfo_option[3] = "ACO algorithme";
+    str_modeInfos = Constants::modeInfo + modeInfo_option[0];
+    modeInfo.setString(str_modeInfos);
 
     // ===Path===
     currentPath.setLineColor(Constants::path_color);
@@ -214,6 +225,7 @@ void Simulation::draw() {
     bestDistanceInfo.draw(window);
     searchInfos.draw(window);
     progressInfo.draw(window);
+    modeInfo.draw(window);
 
     // AI
     // Path
@@ -221,6 +233,29 @@ void Simulation::draw() {
     bestPath.draw(window);
 
     window.display();
+}
+
+void Simulation::update_ModeInfo() {
+    std::string modeNow;
+    if (isAddingTown) {
+        modeNow = modeInfo_option[1];
+    } else if (activate_bruteForce) {
+        modeNow = modeInfo_option[2];
+    } else if (activate_ACO) {
+        // Implementation not finished
+    } else {
+        modeNow = modeInfo_option[3];
+    }
+
+
+    if (modeNow == modeInfo_option[3]) {
+        modeInfo.setFillColor(Constants::defauleMode);
+    } else {
+        modeInfo.setFillColor(Constants::activeMode);
+    }
+
+    str_modeInfos = Constants::modeInfo + modeNow;
+    modeInfo.setString(str_modeInfos);
 }
 
 // Fonction ot update calcule, text, color, ai 
@@ -260,6 +295,8 @@ void Simulation::update() {
     progress = static_cast<float>(search) / static_cast<float>(totalPossibilityCalcule) * 100.f;
     str_progressInfo = Constants::progressInfo + std::to_string(progress);
     progressInfo.setString(str_progressInfo);
+
+    update_ModeInfo();
 }
 
 // Reset the simulation to his default parameter and value (AI include)

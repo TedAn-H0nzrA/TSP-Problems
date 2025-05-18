@@ -32,8 +32,11 @@ namespace Constants {
     inline std::string townNumberInfo = "* Towns number : ";
     inline std::string totalPossibilityInfo = "* Total number of possibility : ";
     inline std::string bestDistanceInfo = "* Best Distance : ";
-    inline std::string searchInfo ="* Seach : ";
-    inline std::string progressInfo ="* Progress (%) :";
+    inline std::string searchInfo = "* Seach : ";
+    inline std::string progressInfo = "* Progress (%) :";
+    inline std::string modeInfo = "* Mode : ";
+    inline sf::Color defauleMode{174, 214, 241};
+    inline sf::Color activeMode{245, 236, 206};
 
     // ACO Parameter and constants
     inline constexpr float ACO_pheromone_depot_intensity = 1;

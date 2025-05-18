@@ -8,6 +8,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include <vector>
+#include <array>
 #include <chrono>
 #include "Town.hpp"
 #include "TextManager.hpp"
@@ -51,10 +52,17 @@ class Simulation{
         std::string str_progressInfo;               // caption + value
         float progress;                             // Value % of the itetation
 
+        TextManager modeInfo;
+        std::string str_modeInfos;
+        std::array<std::string, 4> modeInfo_option;
+        void update_ModeInfo();
+
         // BruteForce
         BruteForce ai_bruteForce;                   // BruteForce algorithme
         bool activate_bruteForce;                   // True: BruteForce resolve
 
+        // ACO
+        bool activate_ACO;
 
         // Path
         PathRender currentPath;                     // Current path class
