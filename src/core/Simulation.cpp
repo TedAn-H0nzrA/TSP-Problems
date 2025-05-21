@@ -1,5 +1,5 @@
 // Simulation.cpp
-// Defined all of the class simulation function and attribut
+// Implementation of all Simulation class functions and attributes
 
 #include "Simulation.hpp"
 #include "Constants.hpp"
@@ -105,15 +105,15 @@ void Simulation::manageEvent() {
 
                 case (sf::Keyboard::T) :
                     isAddingTown = !isAddingTown;
+                    std::cout << "T pressed, isAddingTown = " << isAddingTown << std::endl;
                     break;
-
+                
                 case (sf::Keyboard::B) :
                     isAddingTown = false;
-                    ai_bruteForce.setTowns(towns);
                     activate_bruteForce = true;
-                    ai_bruteForce.reset(); // reset APRÈS avoir ajouté les villes
-                    // std::cout << "Algo BruteForce activate\n";
-                    // std::cout << "Number of town: " << towns.size() << std::endl;
+                    ai_bruteForce.setTowns(towns);
+                    ai_bruteForce.reset(); // Reset après avoir ajouter des villes
+                    AI_solve();
                     break;
 
                 case (sf::Keyboard::G) :
@@ -155,24 +155,21 @@ unsigned long long factorial(int n) {
 // Allow to add town by pressing the mousButton::Left once
 // Based on isAddingTown = true
 void Simulation::addTown() {
-    if (isAddingTown) {
-        Town newTown;
-        auto mousePos = sf::Mouse::getPosition(window);
-        newTown.setPosition(mousePos.x, mousePos.y);
+    Town newTown;
+    auto mousePos = sf::Mouse::getPosition(window);
+    newTown.setPosition(mousePos.x, mousePos.y);
 
-        towns.push_back(newTown);
-        townNum = towns.size();
-        totalPossibilityCalcule = factorial(townNum - 1) / 2;
-        
-        // Town Position
-        townPosition.push_back(newTown.getPosition());
-    }
+    towns.push_back(newTown);
+    townNum = towns.size();
+    totalPossibilityCalcule = factorial(townNum - 1) / 2;
+    
+    // Town Position
+    townPosition.push_back(newTown.getPosition());
 }
 
 // Let the AI sole the probleme of TSP
 // 2 AI: BruteForce && ACO
 void Simulation::AI_solve() {
-    isAddingTown = false;
     if (activate_bruteForce) {
         if (!ai_bruteForce.isFinished()) {
             ai_bruteForce.resolveStep();
@@ -183,31 +180,29 @@ void Simulation::AI_solve() {
             // std::cout << "[DEBUG] Current path size: " << ai_bruteForce.getCurrentPath().size() << "\n";
             // std::cout << "[DEBUG] Best path size: " << ai_bruteForce.getBestPath().size() << "\n";
         }
+    } else if (activate_ACO) {
+        // TODO : Add ACO resolution step here
     }
-
-    // ACO implementation
 }
 
 void Simulation::generateTown() {
-    if (isAddingTown) {
-        std::random_device rd;
-        std::mt19937 gen(rd());
-    
-        std::uniform_real_distribution<float> distX(Constants::t_radius, Constants::WIDTH - Constants::t_radius);
-        std::uniform_real_distribution<float> distY(Constants::t_radius, Constants::HEIGHT - Constants::t_radius);
-    
-        for (size_t i = 0; i < generateTown_number; i++) {
-            Town newTown;
-            newTown.setPosition(distX(gen), distY(gen));
-    
-            towns.push_back(newTown);
-            
-            // Town Position
-            townPosition.push_back(newTown.getPosition());
-        }
-        townNum = towns.size();
-        totalPossibilityCalcule = factorial(townNum - 1) / 2;
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    std::uniform_real_distribution<float> distX(Constants::t_radius, Constants::WIDTH - Constants::t_radius);
+    std::uniform_real_distribution<float> distY(Constants::t_radius, Constants::HEIGHT - Constants::t_radius);
+
+    for (size_t i = 0; i < generateTown_number; i++) {
+        Town newTown;
+        newTown.setPosition(distX(gen), distY(gen));
+
+        towns.push_back(newTown);
+        
+        // Town Position
+        townPosition.push_back(newTown.getPosition());
     }
+    townNum = towns.size();
+    totalPossibilityCalcule = factorial(townNum - 1) / 2;
 }
 
 // Fonction to draw everything in sync
@@ -237,14 +232,15 @@ void Simulation::draw() {
 
 void Simulation::update_ModeInfo() {
     std::string modeNow;
+    
     if (isAddingTown) {
         modeNow = modeInfo_option[1];
     } else if (activate_bruteForce) {
         modeNow = modeInfo_option[2];
     } else if (activate_ACO) {
-        // Implementation not finished
-    } else {
         modeNow = modeInfo_option[3];
+    } else {
+        modeNow = modeInfo_option[0];
     }
 
 
@@ -310,7 +306,6 @@ void Simulation::reset() {
     isAddingTown = false;
     townNum = 0;
     townPosition.clear();
-    townNum = 0;
 
     // Reset calcule data
     totalPossibilityCalcule = 0;
