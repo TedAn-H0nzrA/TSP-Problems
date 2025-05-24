@@ -2,11 +2,22 @@
 #include "Constants.hpp"
 #include <cmath>
 #include <iostream>
-ACO::ACO(std::vector<Town>& towns) :    Q(Constants::ACO_pheromone_depot_intensity),
-                                        towns(towns)
+ACO::ACO(std::vector<Town>& towns) :    Q(Constants::pheromone_deposit_intensity),
+                                        towns(towns),
+                                        alpha(Constants::alpha_importanceOf_pheromones),
+                                        beta(Constants::beta_importanceOf_heuristicAttractivness),
+                                        rho(Constants::evaporation_rate),
+                                        totalNumber_ants(Constants::totalNumber_ants)
 {
     // Inialize paramter
     matrixDistance.resize(towns.size(), std::vector<float>(towns.size(), 0.0f));
+    matrixPheromone.resize(towns.size(), std::vector<float>(towns.size(), Constants::initiale_evaporation_rate));
+    
+    // Intialize ants
+    for (size_t i = 0; i < totalNumber_ants; i++) {
+        Ant ant;
+        ants.push_back(ant);
+    }
 
     // Initialized path index && compute distance matrix
     for (size_t i = 0; i < towns.size(); i++) {
@@ -26,7 +37,7 @@ float ACO::calculateDistance(const sf::Vector2f& a, const sf::Vector2f& b) {
     return dist;
 }
 
-float ACO::phermoneQuantity(int indexI, int indexJ, std::vector<int>& pathOfTheAnt_k) {
+float ACO::pheromoneDelta(int indexI, int indexJ, std::vector<int>& pathOfTheAnt_k) {
     bool found = false;
 
     // Calculate totale distance of the path that the ant walk in
@@ -56,6 +67,38 @@ float ACO::phermoneQuantity(int indexI, int indexJ, std::vector<int>& pathOfTheA
     float deltaT = Q / Lk;
     return deltaT;
 }
+
+float ACO::evaporatePheromone(int indexI, int indexJ) {
+    float updatePheromone;
+    float currentQuantity = matrixPheromone[indexI][indexJ];
+    float contributionOfAllAnts = 0;        // Contribution of all the ant in I and J
+
+    for (auto&& ant : ants) {
+        std::vector<int> pathOfTheAnt_k = ant.getCurrentPaht();
+        for (size_t i = 0; i < pathOfTheAnt_k.size() - 1; i++) {
+            int currentIndex = i;
+            int nextIndex = i + 1;
+
+            if ((currentIndex == indexI && nextIndex == indexJ) ||
+                (currentIndex == indexJ && nextIndex == indexI)) {
+                contributionOfAllAnts += pheromoneDelta(indexI, indexJ, pathOfTheAnt_k);
+            }
+        }
+    }
+
+    updatePheromone = (1 - rho) * currentQuantity + contributionOfAllAnts;
+    
+    return updatePheromone;   
+}
+
+void ACO::updatePheromoneMatrix() {
+    for (size_t i = 0; i < towns.size(); i++) {
+        for (size_t j = 0; j < towns.size(); j++) {
+            matrixPheromone[i][j] = evaporatePheromone(i, i);
+        }
+    }
+}
+
 
 
 void ACO::computeDistanceMatrix() {

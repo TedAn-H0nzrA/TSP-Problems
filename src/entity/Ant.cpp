@@ -18,3 +18,7 @@ void Ant::setPosition(float x, float y) {
 void Ant::draw(sf::RenderWindow& window) {
     window.draw(shape);
 }
+
+std::vector<int> Ant::getCurrentPaht() const {
+    return currentPaht;
+}

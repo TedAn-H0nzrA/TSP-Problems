@@ -16,9 +16,20 @@ class ACO{
         std::vector<std::vector<float>> matrixPheromone;    // Matrix nxn for pheromone in path
         std::vector<int> townsIndex;                        // towns index
         std::vector<Ant> ants;                              // Lists of Ants
+        int totalNumber_ants;
 
         float Q;                                            // Intensity of pheromone deposition
-        float phermoneQuantity(int indexI, int indexJ, std::vector<int>& pathOfTheAnt);
+        float rho;                                          // Abstract evaporation rate
+        float alpha;                                        // Pheromone influence
+        float beta;                                         // Distance influence        
+
+
+        float pheromoneDelta(int indexI, int indexJ, std::vector<int>& pathOfTheAnt);
+        float evaporatePheromone(int indexI, int indexJ);
+        void updatePheromoneMatrix();
+
+        std::vector<float> calculeMoveProbabilities(Ant& ant);
+
 
         float calculateDistance(const sf::Vector2f& a, const sf::Vector2f& b);
         void computeDistanceMatrix();

@@ -45,9 +45,12 @@ namespace Constants {
     inline constexpr float antThicknessLineSize = antRadius * 0.2; 
 
     // ACO Parameter and constants
-    inline constexpr float ACO_pheromone_depot_intensity = 1;
-    inline constexpr int importanceOf_pheromones = 2;
-    inline constexpr int importanceOf_heuristicAttractivness = 1;
+    inline constexpr float pheromone_deposit_intensity = 1;
+    inline constexpr float alpha_importanceOf_pheromones = 2;
+    inline constexpr float beta_importanceOf_heuristicAttractivness = 1;
+    inline constexpr float evaporation_rate = 0.1; // 10% of ρ
+    inline constexpr float initiale_evaporation_rate = 1;
+    inline constexpr int totalNumber_ants = 10;
 
     // Phéromone color
     inline const sf::Color ACO_COLOR_HIGH_PHEROMONE = sf::Color(255, 255, 255);
