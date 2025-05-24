@@ -13,6 +13,7 @@
 #include "Town.hpp"
 #include "TextManager.hpp"
 #include "BruteForce.hpp"
+#include "ACO.hpp"
 #include "PathRender.hpp"
 
 // class Simulation, main class of the project
@@ -62,6 +63,7 @@ class Simulation{
         bool activate_bruteForce;                   // True: BruteForce resolve
 
         // ACO
+        ACO ai_ACo;
         bool activate_ACO;
 
         // Path

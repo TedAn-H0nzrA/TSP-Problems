@@ -23,7 +23,7 @@ namespace Constants {
     inline constexpr int generateTown_number = 100;
 
     // Path
-    inline sf::Color path_color{210, 210, 210};
+    inline sf::Color path_color{220, 220, 220};
     inline sf::Color bestPath_color{39, 174, 96};
 
     // TextManager
@@ -35,9 +35,24 @@ namespace Constants {
     inline std::string searchInfo = "* Seach : ";
     inline std::string progressInfo = "* Progress (%) :";
     inline std::string modeInfo = "* Mode : ";
-    inline sf::Color defauleMode{174, 214, 241};
-    inline sf::Color activeMode{245, 236, 206};
+    inline sf::Color defaultMode{245, 236, 206};
+    inline sf::Color activeMode{174, 214, 241};
+
+    // Ant
+    inline sf::Color antColor{255, 50, 50};
+    inline sf::Color antThicknessColor = sf::Color::Black;
+    inline constexpr float antRadius = t_radius;
+    inline constexpr float antThicknessLineSize = antRadius * 0.2; 
 
     // ACO Parameter and constants
     inline constexpr float ACO_pheromone_depot_intensity = 1;
+    inline constexpr int importanceOf_pheromones = 2;
+    inline constexpr int importanceOf_heuristicAttractivness = 1;
+
+    // Phéromone color
+    inline const sf::Color ACO_COLOR_HIGH_PHEROMONE = sf::Color(255, 255, 255);
+    inline const sf::Color ACO_COLOR_MEDIUM_PHEROMONE = sf::Color(160, 160, 160);
+    inline const sf::Color ACO_COLOR_LOW_PHEROMONE = sf::Color(80, 80, 80);
+    inline const sf::Color ACO_COLOR_NO_PHEROMONE = sf::Color(30, 30, 30);
+    inline const sf::Color ACO_COLOR_CURRENT_PATH = sf::Color(220, 220, 220);
 };

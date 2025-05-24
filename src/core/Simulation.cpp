@@ -16,6 +16,7 @@ Simulation::Simulation() :  isAddingTown(false),
                             totalPossibilityCalcule(0),
                             ai_bruteForce(towns),
                             activate_bruteForce(false),
+                            ai_ACo(towns),
                             activate_ACO(false),
                             bestDistance(0),
                             search(0),
@@ -63,8 +64,8 @@ Simulation::Simulation() :  isAddingTown(false),
     modeInfo.setCharacterSize(Constants::info_size);
     modeInfo_option[0] = "No active mode";
     modeInfo_option[1] = "Add Towns";
-    modeInfo_option[2] = "BruteForce algorithme";
-    modeInfo_option[3] = "ACO algorithme";
+    modeInfo_option[2] = "AI Solve - BruteForce algorithme";
+    modeInfo_option[3] = "AI Solve - ACO algorithme";
     str_modeInfos = Constants::modeInfo + modeInfo_option[0];
     modeInfo.setString(str_modeInfos);
 
@@ -244,8 +245,8 @@ void Simulation::update_ModeInfo() {
     }
 
 
-    if (modeNow == modeInfo_option[3]) {
-        modeInfo.setFillColor(Constants::defauleMode);
+    if (modeNow == modeInfo_option[0]) {
+        modeInfo.setFillColor(Constants::defaultMode);
     } else {
         modeInfo.setFillColor(Constants::activeMode);
     }
@@ -298,8 +299,8 @@ void Simulation::update() {
 // Reset the simulation to his default parameter and value (AI include)
 void Simulation::reset() {
     // Reset AI
-    ai_bruteForce.reset();
     ai_bruteForce = BruteForce(towns);
+    ai_bruteForce.reset();
     activate_bruteForce = false;
     
     // Reset Town
