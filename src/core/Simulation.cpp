@@ -186,6 +186,7 @@ void Simulation::AI_solve() {
     }
 }
 
+// Generating n towns randomly in the windows
 void Simulation::generateTown() {
     std::random_device rd;
     std::mt19937 gen(rd());

@@ -6,6 +6,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <random>
 #include "Town.hpp"
 #include "Ant.hpp"
 
@@ -21,20 +22,30 @@ class ACO{
         float Q;                                            // Intensity of pheromone deposition
         float rho;                                          // Abstract evaporation rate
         float alpha;                                        // Pheromone influence
-        float beta;                                         // Distance influence        
+        float beta;                                         // Distance influence   
+        
+        // Random parameters
+        std::random_device rd;
+        std::mt19937 gen;
+        std::uniform_int_distribution<int> distIndex;
+        std::uniform_real_distribution<float> distRouletteWheel;
+        void randomIndex();
 
-
-        float pheromoneDelta(int indexI, int indexJ, std::vector<int>& pathOfTheAnt);
+        float pheromoneDelta(int indexI, int indexJ, const std::vector<int>& pathOfTheAnt);
         float evaporatePheromone(int indexI, int indexJ);
         void updatePheromoneMatrix();
 
+        // Core of the ACO
         std::vector<float> calculeMoveProbabilities(Ant& ant);
-
+        int rouletteWheel(const std::vector<float>& probabilities);
 
         float calculateDistance(const sf::Vector2f& a, const sf::Vector2f& b);
         void computeDistanceMatrix();
 
-    public:
+        
+        public:
         ACO(std::vector<Town>& towns);
+        void runIteration();
+        
         void draw(sf::RenderWindow& window);
 };

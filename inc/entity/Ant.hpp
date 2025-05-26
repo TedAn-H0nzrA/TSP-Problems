@@ -9,13 +9,16 @@ class Ant{
         sf::CircleShape shape;
         float radius;
         sf::Color color;
-        std::vector<int> currentPaht;
+        std::vector<int> currentPath;
 
     public:
         Ant();
 
-        void setPosition(float x, float y);
+        void setPosition(const sf::Vector2f& pos);
         void draw(sf::RenderWindow& window);
 
-        std::vector<int> getCurrentPaht() const;
+        void addPath(int& path);
+        void clearPath();
+
+        const std::vector<int>& getCurrentPath() const;
 };
