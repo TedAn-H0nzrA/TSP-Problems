@@ -27,9 +27,11 @@ class ACO{
         // Random parameters
         std::random_device rd;
         std::mt19937 gen;
-        std::uniform_int_distribution<int> distIndex;
         std::uniform_real_distribution<float> distRouletteWheel;
-        void randomIndex();
+
+        // Best length && path
+        float bestDistance;
+        std::vector<int> bestPath;
 
         float pheromoneDelta(int indexI, int indexJ, const std::vector<int>& pathOfTheAnt);
         float evaporatePheromone(int indexI, int indexJ);
@@ -40,12 +42,17 @@ class ACO{
         int rouletteWheel(const std::vector<float>& probabilities);
 
         float calculateDistance(const sf::Vector2f& a, const sf::Vector2f& b);
+        float calculePathLength(std::vector<int>& path);
         void computeDistanceMatrix();
-
         
         public:
+
         ACO(std::vector<Town>& towns);
+
         void runIteration();
-        
+        void reset(const std::vector<Town>& towns);
+
+        const std::vector<int>& getBestPath() const;
+        const float getBestLength() const;
         void draw(sf::RenderWindow& window);
 };

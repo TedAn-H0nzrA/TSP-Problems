@@ -35,9 +35,9 @@ class BruteForce{
         bool resolveStep();
 
         // Getters
-        std::vector<int> getCurrentPath() const;
-        std::vector<int> getBestPath() const;
-        float getBestDistance() const;
-        int getSearchFinised() const;
-        bool isFinished() const;
+        const std::vector<int> getCurrentPath() const;
+        const std::vector<int> getBestPath() const;
+        const float getBestDistance() const;
+        const int getSearchFinised() const;
+        const bool isFinished() const;
 };

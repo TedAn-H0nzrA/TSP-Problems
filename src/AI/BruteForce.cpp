@@ -97,18 +97,18 @@ bool BruteForce::resolveStep() {
 }
 
 // Getters
-std::vector<int> BruteForce::getCurrentPath() const {
+const std::vector<int> BruteForce::getCurrentPath() const {
     return currentPath;
 }
-std::vector<int> BruteForce::getBestPath() const {
+const std::vector<int> BruteForce::getBestPath() const {
     return bestPath;
 }
-float BruteForce::getBestDistance() const {
+const float BruteForce::getBestDistance() const {
     return bestDistance;
 }
-int BruteForce::getSearchFinised() const {
+const int BruteForce::getSearchFinised() const {
     return search_finished;
 }
-bool BruteForce::isFinished() const {
+const bool BruteForce::isFinished() const {
     return finished;
 }

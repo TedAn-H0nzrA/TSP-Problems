@@ -63,8 +63,10 @@ class Simulation{
         bool activate_bruteForce;                   // True: BruteForce resolve
 
         // ACO
-        ACO ai_ACo;
+        ACO ai_ACO;
         bool activate_ACO;
+        int iteration;
+        int maxIteration;
 
         // Path
         PathRender currentPath;                     // Current path class

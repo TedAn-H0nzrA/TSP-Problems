@@ -16,11 +16,13 @@ Simulation::Simulation() :  isAddingTown(false),
                             totalPossibilityCalcule(0),
                             ai_bruteForce(towns),
                             activate_bruteForce(false),
-                            ai_ACo(towns),
+                            ai_ACO(towns),
                             activate_ACO(false),
                             bestDistance(0),
                             search(0),
-                            progress(0)
+                            progress(0),
+                            maxIteration(Constants::iteration),
+                            iteration(0)
 {
     window.create(Constants::desktop, Constants::TITLE, sf::Style::Default);
 
@@ -112,9 +114,20 @@ void Simulation::manageEvent() {
                 case (sf::Keyboard::B) :
                     isAddingTown = false;
                     activate_bruteForce = true;
+                    activate_ACO = false;
                     ai_bruteForce.setTowns(towns);
                     ai_bruteForce.reset(); // Reset après avoir ajouter des villes
                     AI_solve();
+                    break;
+
+                case (sf::Keyboard::A) :
+                    isAddingTown = false;
+                    activate_ACO = true;
+                    activate_bruteForce = false;
+                    ai_ACO.reset(towns);
+                    iteration = 0;
+                    AI_solve();
+                    ai_ACO.reset(towns);
                     break;
 
                 case (sf::Keyboard::G) :
@@ -182,7 +195,12 @@ void Simulation::AI_solve() {
             // std::cout << "[DEBUG] Best path size: " << ai_bruteForce.getBestPath().size() << "\n";
         }
     } else if (activate_ACO) {
-        // TODO : Add ACO resolution step here
+        if (iteration < maxIteration) {
+            ai_ACO.runIteration();
+            bestPath.setPath(townPosition, ai_ACO.getBestPath());
+            bestDistance = ai_ACO.getBestLength();
+            iteration++;
+        }
     }
 }
 
@@ -226,6 +244,7 @@ void Simulation::draw() {
 
     // AI
     // Path
+    if (activate_ACO) ai_ACO.draw(window);
     currentPath.draw(window);
     bestPath.draw(window);
 
