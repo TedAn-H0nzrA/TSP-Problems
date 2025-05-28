@@ -8,8 +8,6 @@ Ant::Ant() :    radius(Constants::antRadius),
     shape.setRadius(radius);
     shape.setFillColor(color);
     shape.setOrigin(radius, radius);
-    shape.setOutlineThickness(Constants::antThicknessLineSize);
-    shape.setOutlineColor(Constants::antThicknessColor);
 }
 
 void Ant::setPosition(const sf::Vector2f& pos) {

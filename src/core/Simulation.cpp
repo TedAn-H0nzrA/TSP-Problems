@@ -4,7 +4,6 @@
 #include "Simulation.hpp"
 #include "Constants.hpp"
 #include "LoadRessource.hpp"
-#include <iostream>
 #include <iomanip>
 #include <random>
 
@@ -30,39 +29,8 @@ Simulation::Simulation() :  isAddingTown(false),
     if (LoadRessource::loadMusic(Constants::BACKGROUND_MUSIC, music_background)) isPlayMusicBG = true;
 
     // ===Text manage===
-    // Town
-    townInfo.setPosition(10, 10);
-    townInfo.setCharacterSize(Constants::info_size);
-    str_townInfo = Constants::townNumberInfo + std::to_string(townNum);
-    townInfo.setString(str_townInfo);
-
-    // Iteration
-    totalPossibilityInfo.setPosition(10, 30);
-    totalPossibilityInfo.setCharacterSize(Constants::info_size);
-    str_totalPossibilityInfo = Constants::totalPossibilityInfo + std::to_string(totalPossibilityCalcule);
-    totalPossibilityInfo.setString(str_totalPossibilityInfo);
-
-    // AI info
-    // *Distance
-    bestDistanceInfo.setPosition(10, 90);
-    bestDistanceInfo.setCharacterSize(Constants::info_size);
-    str_bestDistanceInfo = Constants::bestDistanceInfo + std::to_string(bestDistance);
-    bestDistanceInfo.setString(str_bestDistanceInfo);
-
-    // *Search
-    searchInfos.setPosition(10, 50);
-    searchInfos.setCharacterSize(Constants::info_size);
-    str_searchInfo = Constants::searchInfo + std::to_string(search);
-    searchInfos.setString(str_searchInfo);
-
-    // *Progress
-    progressInfo.setPosition(10, 70);
-    progressInfo.setCharacterSize(Constants::info_size);
-    str_progressInfo = Constants::progressInfo + std::to_string(progress);
-    progressInfo.setString(str_progressInfo);
-
     // *Mode
-    modeInfo.setPosition(10, 110);
+    modeInfo.setPosition(10, 10);
     modeInfo.setCharacterSize(Constants::info_size);
     modeInfo_option[0] = "No active mode";
     modeInfo_option[1] = "Add Towns";
@@ -70,6 +38,44 @@ Simulation::Simulation() :  isAddingTown(false),
     modeInfo_option[3] = "AI Solve - ACO algorithme";
     str_modeInfos = Constants::modeInfo + modeInfo_option[0];
     modeInfo.setString(str_modeInfos);
+
+    // Town
+    townInfo.setPosition(10, 30);
+    townInfo.setCharacterSize(Constants::info_size);
+    str_townInfo = Constants::townNumberInfo + std::to_string(townNum);
+    townInfo.setString(str_townInfo);
+
+    // *Distance
+    bestDistanceInfo.setPosition(10, 50);
+    bestDistanceInfo.setCharacterSize(Constants::info_size);
+    str_bestDistanceInfo = Constants::bestDistanceInfo + std::to_string(bestDistance);
+    bestDistanceInfo.setString(str_bestDistanceInfo);
+
+    // *Possibility
+    totalPossibilityInfo.setPosition(10, 70);
+    totalPossibilityInfo.setCharacterSize(Constants::info_size);
+    str_totalPossibilityInfo = Constants::totalPossibilityInfo + std::to_string(totalPossibilityCalcule);
+    totalPossibilityInfo.setString(str_totalPossibilityInfo);
+
+    // BruteForce info
+    // *Search
+    searchInfos.setPosition(10, 90);
+    searchInfos.setCharacterSize(Constants::info_size);
+    str_searchInfo = Constants::searchInfo + std::to_string(search);
+    searchInfos.setString(str_searchInfo);
+
+    // *Progress
+    progressInfo.setPosition(10, 110);
+    progressInfo.setCharacterSize(Constants::info_size);
+    str_progressInfo = Constants::progressInfo + std::to_string(progress);
+    progressInfo.setString(str_progressInfo);
+
+    // ACO info
+    // *Iteration
+    interationInfo.setPosition(10, 90);
+    interationInfo.setCharacterSize(Constants::info_size);
+    str_interationInfo = Constants::itetationInfo + std::to_string(iteration);
+    interationInfo.setString(str_interationInfo);
 
     // ===Path===
     currentPath.setLineColor(Constants::path_color);
@@ -108,7 +114,6 @@ void Simulation::manageEvent() {
 
                 case (sf::Keyboard::T) :
                     isAddingTown = !isAddingTown;
-                    std::cout << "T pressed, isAddingTown = " << isAddingTown << std::endl;
                     break;
                 
                 case (sf::Keyboard::B) :
@@ -196,10 +201,10 @@ void Simulation::AI_solve() {
         }
     } else if (activate_ACO) {
         if (iteration < maxIteration) {
+            iteration++;
             ai_ACO.runIteration();
             bestPath.setPath(townPosition, ai_ACO.getBestPath());
             bestDistance = ai_ACO.getBestLength();
-            iteration++;
         }
     }
 }
@@ -238,8 +243,12 @@ void Simulation::draw() {
     townInfo.draw(window);
     totalPossibilityInfo.draw(window);
     bestDistanceInfo.draw(window);
-    searchInfos.draw(window);
-    progressInfo.draw(window);
+    if (activate_bruteForce) {
+        searchInfos.draw(window);
+        progressInfo.draw(window);
+    } else if (activate_ACO) {
+        interationInfo.draw(window);
+    }
     modeInfo.draw(window);
 
     // AI
@@ -303,6 +312,7 @@ void Simulation::update() {
     totalPossibilityInfo.setFillColor(totalPossibilityColor);
 
     AI_solve();
+
     str_bestDistanceInfo = Constants::bestDistanceInfo + std::to_string(bestDistance);
     bestDistanceInfo.setString(str_bestDistanceInfo);
 
@@ -313,6 +323,9 @@ void Simulation::update() {
     str_progressInfo = Constants::progressInfo + std::to_string(progress);
     progressInfo.setString(str_progressInfo);
 
+    str_interationInfo = Constants::itetationInfo + std::to_string(iteration) + "/" + std::to_string(maxIteration);
+    interationInfo.setString(str_interationInfo);
+
     update_ModeInfo();
 }
 
@@ -322,6 +335,9 @@ void Simulation::reset() {
     ai_bruteForce = BruteForce(towns);
     ai_bruteForce.reset();
     activate_bruteForce = false;
+
+    ai_ACO.reset(towns);
+    activate_ACO = false;
     
     // Reset Town
     isAddingTown = false;

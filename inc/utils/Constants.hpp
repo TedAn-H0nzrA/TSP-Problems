@@ -20,7 +20,7 @@ namespace Constants {
     // Town
     inline constexpr float t_radius = 10;
     inline sf::Color t_color{255, 215, 0};
-    inline constexpr int generateTown_number = 100;
+    inline constexpr int generateTown_number = 50;
 
     // Path
     inline sf::Color path_color{220, 220, 220};
@@ -32,21 +32,24 @@ namespace Constants {
     inline std::string townNumberInfo = "* Towns number : ";
     inline std::string totalPossibilityInfo = "* Total number of possibility : ";
     inline std::string bestDistanceInfo = "* Best Distance : ";
+    inline std::string modeInfo = "* Mode : ";
+    // BruteForce algorithme
     inline std::string searchInfo = "* Seach : ";
     inline std::string progressInfo = "* Progress (%) :";
-    inline std::string modeInfo = "* Mode : ";
+    // ACO algorithme
+    inline std::string itetationInfo = "* Iteration : ";
+    // Color
     inline sf::Color defaultMode{245, 236, 206};
     inline sf::Color activeMode{174, 214, 241};
 
     // Ant
     inline sf::Color antColor{255, 50, 50};
     inline sf::Color antThicknessColor = sf::Color::Black;
-    inline constexpr float antRadius = t_radius;
-    inline constexpr float antThicknessLineSize = antRadius * 0.2; 
+    inline constexpr float antRadius = t_radius - (t_radius / 10);
 
     // ACO Parameter and constants
     inline constexpr int iteration = 100;
-    inline constexpr int totalNumber_ants = 10;
+    inline constexpr int totalNumber_ants = 20;
     inline constexpr float pheromone_deposit_intensity = 1;
     inline constexpr float alpha_importanceOf_pheromones = 2;
     inline constexpr float beta_importanceOf_heuristicAttractivness = 1;

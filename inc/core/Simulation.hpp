@@ -53,6 +53,9 @@ class Simulation{
         std::string str_progressInfo;               // caption + value
         float progress;                             // Value % of the itetation
 
+        TextManager interationInfo;                 // Render text fo iteration ACO
+        std::string str_interationInfo;             // Value of the iteration
+
         TextManager modeInfo;
         std::string str_modeInfos;
         std::array<std::string, 4> modeInfo_option;

@@ -2,7 +2,6 @@
 // Implementation of the search fonction of BruteForce algorithme
 
 #include "BruteForce.hpp"
-#include <iostream>
 #include <algorithm>
 
 // Constructor
@@ -67,7 +66,6 @@ void BruteForce::reset() {
     bestPath.clear();
     finished = false;
     search_finished = 0;
-    std::cout << "[DEBUG] BruteForce reset avec " << numberTowns << " villes\n";
 }
 
 // Perform a permutation state et evaluate the currente distance

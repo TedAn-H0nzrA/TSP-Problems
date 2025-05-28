@@ -52,6 +52,8 @@ class ACO{
         void runIteration();
         void reset(const std::vector<Town>& towns);
 
+        void updateAnts();
+
         const std::vector<int>& getBestPath() const;
         const float getBestLength() const;
         void draw(sf::RenderWindow& window);
