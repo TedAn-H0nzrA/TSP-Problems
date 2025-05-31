@@ -30,6 +30,7 @@ This application provides a visual simulation of the Travelling Salesman Problem
 |--------------|---------------------------------------------|
 | `T`          | Toggle city placement mode                  |
 | `B`          | Start the brute-force algorithm             |
+| `A`          | Start the ACO algorithm                     |
 | `Space`      | Reset the simulation                        |
 | `M`          | Toggle background music                     |
 | `Left Click` | Add a city (when placement mode is active)  |
@@ -41,6 +42,10 @@ This application provides a visual simulation of the Travelling Salesman Problem
 The brute-force algorithm explores every possible permutation of the cities to find the shortest route. While this guarantees the **optimal solution**, the performance **degrades rapidly** as the number of cities increases.
 
 > Time complexity: `(n-1)!` where `n` is the number of cities
+
+## 🧠 Implemented Algorithm: **Ant Colony Optimization**
+
+The ACO algorithm use the behavior of ant walking throught the cities to find the shortest route. While this will not guarantees the **optimal solution**, but the performance **is fast** compare to the Brute-Force alogorithm.
 
 ### Performance indication (color-coded)
 
@@ -55,7 +60,7 @@ The brute-force algorithm explores every possible permutation of the cities to f
 
 1. Press `T` to activate city placement mode.
 2. Click on the screen to place your cities.
-3. Press `B` to start the brute-force algorithm.
+3. Press `B` to start the brute-force algorithm or `A` for ACO algorithm.
 4. Watch the progress and path update in real time.
 5. Press `Space` to reset and try again.
 

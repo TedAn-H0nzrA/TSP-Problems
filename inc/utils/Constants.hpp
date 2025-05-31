@@ -20,7 +20,7 @@ namespace Constants {
     // Town
     inline constexpr float t_radius = 10;
     inline sf::Color t_color{255, 215, 0};
-    inline constexpr int generateTown_number = 50;
+    inline constexpr int generateTown_number = 12;
 
     // Path
     inline sf::Color path_color{220, 220, 220};
