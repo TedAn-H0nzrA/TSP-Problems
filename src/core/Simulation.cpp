@@ -74,7 +74,7 @@ Simulation::Simulation() :  isAddingTown(false),
     // *Iteration
     interationInfo.setPosition(10, 90);
     interationInfo.setCharacterSize(Constants::info_size);
-    str_interationInfo = Constants::itetationInfo + std::to_string(iteration);
+    str_interationInfo = Constants::iterationInfo + std::to_string(iteration);
     interationInfo.setString(str_interationInfo);
 
     // ===Path===
@@ -136,8 +136,7 @@ void Simulation::manageEvent() {
                     break;
 
                 case (sf::Keyboard::G) :
-                    if (!activate_bruteForce) {
-                        isAddingTown = !isAddingTown;
+                    if (!activate_bruteForce || !activate_ACO) {
                         generateTown();
                     } 
                     break;
@@ -323,7 +322,7 @@ void Simulation::update() {
     str_progressInfo = Constants::progressInfo + std::to_string(progress);
     progressInfo.setString(str_progressInfo);
 
-    str_interationInfo = Constants::itetationInfo + std::to_string(iteration) + "/" + std::to_string(maxIteration);
+    str_interationInfo = Constants::iterationInfo + std::to_string(iteration) + "/" + std::to_string(maxIteration);
     interationInfo.setString(str_interationInfo);
 
     update_ModeInfo();

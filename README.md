@@ -136,4 +136,10 @@ Potential improvements for future releases:
 
 ---
 
+## Background Music
+
+Music track: A Beautiful Garden by Aventure
+Source: https://freetouse.com/music
+Free Background Music for Video
+
 ## 🎓 Developed by Andrianina – Computer Science – 2025

@@ -9,7 +9,7 @@
 
 // Namespace of all of the const value
 namespace Constants {
-    inline sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
+    inline sf::VideoMode desktop = sf::VideoMode::getDesktopMode().getDesktopMode();
     inline float WIDTH = static_cast<float>(desktop.width);
     inline float HEIGHT = static_cast<float>(desktop.height);
     inline std::string TITLE = "TSP problems (BruteForce vs ACO)";
@@ -23,7 +23,7 @@ namespace Constants {
     inline constexpr int generateTown_number = 12;
 
     // Path
-    inline sf::Color path_color{220, 220, 220};
+    inline sf::Color path_color{220, 220, 220, 108};
     inline sf::Color bestPath_color{39, 174, 96};
 
     // TextManager
@@ -37,7 +37,7 @@ namespace Constants {
     inline std::string searchInfo = "* Seach : ";
     inline std::string progressInfo = "* Progress (%) :";
     // ACO algorithme
-    inline std::string itetationInfo = "* Iteration : ";
+    inline std::string iterationInfo = "* Iteration : ";
     // Color
     inline sf::Color defaultMode{245, 236, 206};
     inline sf::Color activeMode{174, 214, 241};
